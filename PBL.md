@@ -117,18 +117,8 @@
 #### 湍流的研究方法
 现在我们知道了湍流的产生机制，接下来就要开始正式研究湍流了。
 
-首先，我们知道，大气科学，乃至流体力学，都在试图解决一个核心的问题：Navier-Stokes方程（NS方程）
-
-\[\rho \left( \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla)\mathbf{u} \right) = -\nabla p + \mu \nabla^2 \mathbf{u} + \mathbf{f} \] 
-
-或者写成大气科学领域更为熟悉的方式
-
-\[ \frac{d\vec{V}_h}{dt} = -f \vec{k} \times \vec{V} - \frac{1}{\rho} \nabla P \]
-
-但是，众所周知，这是一个极其难以求解的，高度非线性的方程，我们必须使用一些技巧来辅助我们求解。在计算流体力学（Computational Fluid Dynamics, CFD）中有两个常用的方法：雷诺平均方法（Reynolds-Averaged Navier-Stokes, RANS）和大涡模拟方法（Large Eddy Simulation, LES）。我们先介绍更为常见RANS方法，如果后续有需要的话，我再更新[LES方法]()。
-
 ##### 泰勒假设
-由于流体在无时无刻的运动，湍涡也在不停的生消发展，那传感器怎么测量一个无时无刻在变化的量呢？在1938年，泰勒（I.G Tylor）提出：**在特定条件下，湍流平移经过传感器时，可以将它看成凝固的。** 即，如果$\frac{d\xi}{dt} = 0$，则有
+首先，我们应该获取湍流的资料。但是，由于流体在无时无刻的运动，湍涡也在不停的生消发展，我们该怎么测量一个无时无刻在变化的量呢？在1938年，泰勒（I.G Tylor）提出：**在特定条件下，湍流平移经过传感器时，可以将它看成凝固的。** 即，如果$\frac{d\xi}{dt} = 0$，则有
 
 \[\frac{d\xi}{dt} = \frac{\partial \xi}{\partial t} + U \frac{\partial \xi}{\partial x} + V \frac{\partial \xi}{\partial y} + W \frac{\partial \xi}{\partial z}
 \]
@@ -139,10 +129,30 @@
 \frac{\partial \xi}{\partial t} = - U \frac{\partial \xi}{\partial x} - V \frac{\partial \xi}{\partial y} - W \frac{\partial \xi}{\partial z}
 \]
 
-这样，区域内物理量随时间的变化就可以通过不计算时间变量求得。而根据$\frac{d\xi}{dt} = 0$，可知其适用于湍强不太大、风速不太小、均匀湍流、平稳湍流的地区。
+这样，区域内物理量随时间的变化就可以通过泰勒假设间接地通过排除时间变量求得。而根据$\frac{d\xi}{dt} = 0$，可知其适用于湍强不太大、风速不太小、均匀湍流、平稳湍流的地区。也就是说，这个方法只能用于获取稳态流动中的湍流信息。
 
+##### 雷诺平均
+现在我们算是解决了资料的问题了。接下来，我们需要做另一件事：解方程。
 
-##### RANS
+我们知道，大气科学，乃至流体力学，都在试图解决一个核心的问题：Navier-Stokes方程（NS方程）
+
+\[\rho \left( \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla)\mathbf{u} \right) = -\nabla p + \mu \nabla^2 \mathbf{u} + \mathbf{f} \] 
+
+或者写成大气科学领域更为熟悉的方式
+
+\[ \frac{d\vec{V}_h}{dt} = -f \vec{k} \times \vec{V} - \frac{1}{\rho} \nabla P \]
+
+但是，众所周知，这是一个极其难以求解的，高度非线性的方程，我们必须使用一些技巧来辅助我们求解。在计算流体力学（Computational Fluid Dynamics, CFD）中有两个常用的方法：雷诺平均方法（Reynolds-Averaged Navier-Stokes, RANS）和大涡模拟方法（Large Eddy Simulation, LES）。我们先介绍更为常见RANS方法，如果后续有需要的话，我再更新[LES方法]()。
+
+虽然湍流运动是随机且复杂的，但对于雷诺平均方法，我们可以采用统计的思想从计算瞬时态的流场转为计算均态的流场来曲线救国。像分析波动一样，雷诺平均的思想是将流体中的物理量表示为代表流体变化趋势的**均值**与代表湍流脉动的**扰动**，即对于任意物理量，均有$A=\bar A+A'$。其中$\bar A=\frac{1}{T}\int_0^T Adt$。如果我们取一个合适的时间，比如大于脉动周期，而小于流体的特征时间尺度。这样，由于时间大于脉动周期，可以去除随机性产生的影响；小于特征尺度可以防止流体的主要信息被一并消去。
+
+然后，我们再对平均化做出如下规则约束：
+1. $\overline{\bar A}=\bar A$，$\overline{A'}=0$, $\overline{A'B'}\neq0$
+2. $\overline{\bar A+A'}=\bar A+0=\bar A$
+3. $\overline{(\bar A+A')\cdot(\bar B+B')}=\overline{\bar AB'+\bar A\bar B+A'\bar B+A'B'}=\overline{\bar A\bar B}+\overline{A'}=0$
+
+同时，为了表达式简洁，我们再引入该死的[张量标识法]()（会填的），则可以得到雷诺平均后的方程，即（雷诺平均NS方程，Reynolds-Averaged Navier-Stokes, RANS）
+
 
 #### 湍流的发展
 
