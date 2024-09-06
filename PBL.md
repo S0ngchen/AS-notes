@@ -160,7 +160,7 @@ $$
 2. $\overline{\bar A+A'}=\bar A+0=\bar A$
 3. $\overline{(\bar A+A')\cdot(\bar B+B')}=\overline{\bar AB'+\bar A\bar B+A'\bar B+A'B'}=\overline{\bar A\bar B}+\overline{A'}=0$
 
-同时，为了表达式简洁，我们再引入该死的[张量标识法]()（会填的），则可以得到雷诺平均后的方程，即（雷诺平均NS方程，Reynolds-Averaged Navier-Stokes, RANS）
+同时，为了表达式简洁，我们再引入该死的[张量标识法](./basis.markdown#张量表示法)，则可以得到雷诺平均后的方程，即（雷诺平均NS方程，Reynolds-Averaged Navier-Stokes, RANS）
 
 
 #### 湍流的发展

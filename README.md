@@ -4,6 +4,7 @@
 部分笔记也会同步更新至[知乎](https://www.zhihu.com/people/qiu-jiao-yi-50)或[CSDN](https://blog.csdn.net/le0_5?spm=1010.2135.3001.5343)。欢迎关注！
 
 ## 目录
+[基础知识](./basis.markdown)
 [大气边界层 Planetary Boundary Layer](./PBL.md)
 
 [空气污染气象学 Air Pollution Meteorology](./ap.md)
