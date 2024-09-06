@@ -42,11 +42,13 @@
 为了描述边界层中大气的运动，我们需要知道一些用于解析边界层的物理概念与方法。
 
 先看一组真实世界中的气温-时间序列：
+
 ![图是偷的（小声）](./fig4pbl/image.png)
+
 如果不看红线，只会感觉密密麻麻的，似乎没什么特别。但是加上这条红线，就可以看出点端倪：我们测得的物理量都在这个红线附近波动，而红线本身又呈现波的形状。
 
 也就是说，真实世界中，流体的流动形式有以下三种：
-平均运动 $\bar A$，波动$A'$和湍流运动$A''$。也就是说，任何一个变量都能写成$A=\bar A+A'+A''$！换种方法说，流体运动是平均运动、波动和湍流三者的叠加。
+平均运动 $\bar A$，波动 $A'$和湍流运动$A''$ 。也就是说，任何一个变量都能写成 $A=\bar A+A'+A''$ ！换种方法说，流体运动是平均运动、波动和湍流三者的叠加。
 
 这和[动力气象学中的波动]()类似，只不过动力气象学中研究的是自由大气，所以可以忽略湍流的作用。
 
@@ -89,12 +91,14 @@
 
 根据这个性质，他得出了雷诺数（Reynolds number）：
 
-\[\text{Re}=\frac{\rho U L}{\mu}=\frac{U L}{\nu}\]
+$$
+\text{Re}=\frac{\rho U L}{\mu}=\frac{U L}{\nu}
+$$
 
-其中$\nu=\frac{\mu}{\rho}$，表示运动粘度。
+其中 $\nu=\frac{\mu}{\rho}$ ，表示运动粘度。
 关于这个式子具体的介绍，我会放在[动力学基础]()中（如果我想得起来更的话XD）
 
-通过计算雷诺数，我们可以得到湍流的运动类型式层流还是湍流。当雷诺数大于临界雷诺数$Re_c$时，流体从层流转变。
+通过计算雷诺数，我们可以得到湍流的运动类型式层流还是湍流。当雷诺数大于临界雷诺数 $Re_c$ 时，流体从层流转变。
 
 不过，雷诺数只是一个用于鉴别流体运动类型的工具，不能反映湍流的产生机制。一般来说，在大气中，湍流主要有两个产生机制：对流热泡和速度梯度。
 
@@ -118,36 +122,41 @@
 现在我们知道了湍流的产生机制，接下来就要开始正式研究湍流了。
 
 ##### 泰勒假设
-首先，我们应该获取湍流的资料。但是，由于流体在无时无刻的运动，湍涡也在不停的生消发展，我们该怎么测量一个无时无刻在变化的量呢？在1938年，泰勒（I.G Tylor）提出：**在特定条件下，湍流平移经过传感器时，可以将它看成凝固的。** 即，如果$\frac{d\xi}{dt} = 0$，则有
+首先，我们应该获取湍流的资料。但是，由于流体在无时无刻的运动，湍涡也在不停的生消发展，我们该怎么测量一个无时无刻在变化的量呢？在1938年，泰勒（I.G Tylor）提出：**在特定条件下，湍流平移经过传感器时，可以将它看成凝固的。** 即，如果 $\frac{d\xi}{dt} = 0$ ，则有
 
-\[\frac{d\xi}{dt} = \frac{\partial \xi}{\partial t} + U \frac{\partial \xi}{\partial x} + V \frac{\partial \xi}{\partial y} + W \frac{\partial \xi}{\partial z}
-\]
+$$
+\frac{d\xi}{dt} = \frac{\partial \xi}{\partial t} + U \frac{\partial \xi}{\partial x} + V \frac{\partial \xi}{\partial y} + W \frac{\partial \xi}{\partial z}
+$$
 
 也就是
 
-\[
+$$
 \frac{\partial \xi}{\partial t} = - U \frac{\partial \xi}{\partial x} - V \frac{\partial \xi}{\partial y} - W \frac{\partial \xi}{\partial z}
-\]
+$$
 
-这样，区域内物理量随时间的变化就可以通过泰勒假设间接地通过排除时间变量求得。而根据$\frac{d\xi}{dt} = 0$，可知其适用于湍强不太大、风速不太小、均匀湍流、平稳湍流的地区。也就是说，这个方法只能用于获取稳态流动中的湍流信息。
+这样，区域内物理量随时间的变化就可以通过泰勒假设间接地通过排除时间变量求得。而根据 $\frac{d\xi}{dt} = 0$ ，可知其适用于湍强不太大、风速不太小、均匀湍流、平稳湍流的地区。也就是说，这个方法只能用于获取稳态流动中的湍流信息。
 
 ##### 雷诺平均
 现在我们算是解决了资料的问题了。接下来，我们需要做另一件事：解方程。
 
 我们知道，大气科学，乃至流体力学，都在试图解决一个核心的问题：Navier-Stokes方程（NS方程）
 
-\[\rho \left( \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla)\mathbf{u} \right) = -\nabla p + \mu \nabla^2 \mathbf{u} + \mathbf{f} \] 
+$$
+\rho \left( \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla)\mathbf{u} \right) = -\nabla p + \mu \nabla^2 \mathbf{u} + \mathbf{f}
+$$ 
 
 或者写成大气科学领域更为熟悉的方式
 
-\[ \frac{d\vec{V}_h}{dt} = -f \vec{k} \times \vec{V} - \frac{1}{\rho} \nabla P \]
+$$
+\frac{d\vec{V}_h}{dt} = -f \vec{k} \times \vec{V} - \frac{1}{\rho} \nabla P
+$$
 
 但是，众所周知，这是一个极其难以求解的，高度非线性的方程，我们必须使用一些技巧来辅助我们求解。在计算流体力学（Computational Fluid Dynamics, CFD）中有两个常用的方法：雷诺平均方法（Reynolds-Averaged Navier-Stokes, RANS）和大涡模拟方法（Large Eddy Simulation, LES）。我们先介绍更为常见RANS方法，如果后续有需要的话，我再更新[LES方法]()。
 
-虽然湍流运动是随机且复杂的，但对于雷诺平均方法，我们可以采用统计的思想从计算瞬时态的流场转为计算均态的流场来曲线救国。像分析波动一样，雷诺平均的思想是将流体中的物理量表示为代表流体变化趋势的**均值**与代表湍流脉动的**扰动**，即对于任意物理量，均有$A=\bar A+A'$。其中$\bar A=\frac{1}{T}\int_0^T Adt$。如果我们取一个合适的时间，比如大于脉动周期，而小于流体的特征时间尺度。这样，由于时间大于脉动周期，可以去除随机性产生的影响；小于特征尺度可以防止流体的主要信息被一并消去。
+虽然湍流运动是随机且复杂的，但对于雷诺平均方法，我们可以采用统计的思想从计算瞬时态的流场转为计算均态的流场来曲线救国。像分析波动一样，雷诺平均的思想是将流体中的物理量表示为代表流体变化趋势的**均值**与代表湍流脉动的**扰动**，即对于任意物理量，均有 $A=\bar A+A'$。其中 $\bar A=\frac{1}{T}\int_0^T Adt$。如果我们取一个合适的时间，比如大于脉动周期，而小于流体的特征时间尺度。这样，由于时间大于脉动周期，可以去除随机性产生的影响；小于特征尺度可以防止流体的主要信息被一并消去。
 
 然后，我们再对平均化做出如下规则约束：
-1. $\overline{\bar A}=\bar A$，$\overline{A'}=0$, $\overline{A'B'}\neq0$
+1. $\overline{\bar A}=\bar A$， $\overline{A'}=0$,  $\overline{A'B'}\neq0$
 2. $\overline{\bar A+A'}=\bar A+0=\bar A$
 3. $\overline{(\bar A+A')\cdot(\bar B+B')}=\overline{\bar AB'+\bar A\bar B+A'\bar B+A'B'}=\overline{\bar A\bar B}+\overline{A'}=0$
 
