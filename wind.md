@@ -36,7 +36,7 @@ $$\frac{d_a\vec V_a}{dt}=\frac{d\vec V_a}{dt}+\vec\Omega\times \vec V_a=\frac{d(
 
 $$\frac{d_a\vec V_a}{dt}=\frac{d\vec V}{dt}+2\vec\Omega\times \vec V-\Omega^2\vec R$$
 
-其中R为物体到地轴的距离；你可能在推导的时候用到这条公式：$\vec\Omega\times\vec\Omega\times\vec r=(\vec\Omega\vec r)\vec\Omega-(\vec\Omega\vec\Omega)\vec r$
+其中R为物体到地轴的距离；你可能在推导的时候用到这条公式： $\vec\Omega\times\vec\Omega\times\vec r=(\vec\Omega\vec r)\vec\Omega-(\vec\Omega\vec\Omega)\vec r$
 
 对于上述式子，可以发现速度在转换中多出了两项，其中 $-\Omega^2\vec R$ 比较熟悉，是向心力的角速度写法，但是前面有负号，所以这项是虚拟的离心力；对于 $-2\vec\Omega\times \vec V$ ，称为**地转偏向力**或者**科氏力**，这项表征的是物体相对地球运动时产生的力。
 
