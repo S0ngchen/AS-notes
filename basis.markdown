@@ -40,10 +40,53 @@ $$
 
 当张量表示为 $a_{inm}$（其中n和m为具体的数），即一个下标为不确定值，其余为确定值时，我们称那个不确定的值为**自由标号**。如果下标是自由标号，则认为此时张量表示取那一维度的所有元素。如果你学过python，并了解numpy，那就更好了，你可以把他看成是 `ndarray[:, n, m]`。
 
-重复出现，且只能重复出现一次的下标符号称为**哑标**。哑标号在其方程内先罗列，再求和。即 $a_{mi}b_{ni}=a_{m1}b_{n1}+\cdots+a_{mk}b_{nk}$（其中m和n表示确定的数，k表示这个维度的元素数）。可以类比为numpy中的`(ndarray1[m, :]*ndarray2[n, :]).sum()`。
+重复出现，且只能重复出现一次的下标符号称为**哑标**。哑标号在其方程内先罗列，再求和。即 $a_{mi}b_{ni}=a_{m1}b_{n1}+\cdots+a_{mk}b_{nk}$（其中m和n表示确定的数，k表示这个维度的元素数）。可以类比为numpy中的`(ndarray1[m, :]*ndarray2[n, :]).sum()`。这种表示方法也叫做**Einstein求和约定**。要保证这个运算能成立，我们还要保证同一个方程中自由标阶数要相同。不然的话不但在python中运算会报错，在现实中也会。
 
+再举几个例子方便理解， $a_{ii}=\sum_{i=1}^{n}a_{ii}$； $a_{ij}b_{ij}=\sum_{i=1}^{n}\sum_{j=1}^{m}a_{ij}b_{ij}$（其中i，j都是哑标）。
+
+由于在我们研究的范围是个三维的空间，因此后续我将默认张量的分量维度是3，也就是我们的张量和三阶魔方有相同的形状。
+
+![三阶魔法，来源https://upload.wikimedia.org/wikipedia/commons/0/0d/%E4%B8%89%E9%98%B6%E9%AD%94%E6%96%B9_step0_6.png](https://upload.wikimedia.org/wikipedia/commons/0/0d/%E4%B8%89%E9%98%B6%E9%AD%94%E6%96%B9_step0_6.png)
 
 ### 张量的计算方法
-#### Einstein求和约定
+单有Einstein求和约定并不能完全简化计算。比如在向量计算中常见的点乘运算，如果只用Einstein求和约定就无法表示。因为从单一个面来看，Einstein求和约定只能选取一条边上的分量，但点乘要求的是对角线上的分量。
+
+因此，我们引入了Kronecker delta（ $\delta_{ij}$ ）。其可表示为
+
+$$
+\delta_{ij}=
+\left\{
+\begin{array}{l}
+0, i\neq j \\
+1, i=j
+\end{array}
+\right.
+$$
+这样，向量点积就可以表示为 $a\cdot b=\delta_{ij}a_{i}b_{j}$ 。
+
+同理，为了方便表示外积，引入交换张量符号Epsilon标记（ $\epsilon_{ijk}$ ）。
+
+为了解释这个符号，你需要再知道：
+
+假如有一组递增的arange如 `np.arange(1, 5)=[1, 2, 3, 4]` ，如果把这个数列头尾相接 `[1, 2, 3, 4, 1, ......]` ，那么任意截取这个新数列的部分，构成的排列均是**偶排列**。同理，对于递减的arange `np.arange(4, 0, -1)=[4, 3, 2, 1]` ，这样从头尾相接的新数列截取的部分构成奇排列。
+
+这样，Epsilon标记就可以表示为
+
+$$
+\epsilon_{ijk}=
+\left\{
+\begin{array}{l}
+1, 偶排列 \\
+-1, 奇排列 \\
+0, 有重复的下标
+\end{array}
+\right.
+$$
+
+而外积可以表示为 $a\times b=\epsilon_{ijk}a_ib_j$。
+
+同阶张量间可以进行加减，表示张量对应的各个元素分别相加/减，用python语法可以表示为 `array1+array2` 或 `array1-array2` 。
+
+
 
 

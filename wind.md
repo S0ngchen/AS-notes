@@ -3,44 +3,44 @@
 ### 气压梯度力
 根据中学的知识，我们可以知道，在空气中，因为密度的不均匀，会产生压力，而且由于内在的压力，空气会自发的从高压区流向低压区。这样的驱动力，我么们就称之为气压梯度力。根据**梯度**的定义，可以得到气压梯度的公式
 
-\[\nabla\vec{P}\]
+$$\nabla\vec{P}$$
 
 作用于单位质量的气团上，就能得到气压梯度力的公式:
 
-\[F=\frac{1}{\rho}\nabla\vec{P}\]
+$$F=\frac{1}{\rho}\nabla\vec{P}$$
 
 为了简便，后续简称其为梯度力。
 
 但是，单凭一个气压梯度力，似乎仍然不能解释风的形成。按照气压梯度的理论，如果只有气压梯度力，风会沿着高压吹向低压，减小高压区与低压区的气压差，最终高压区和低压区的气压趋于一致。按照这个过程，全球的风就这样不断地被消耗，最终，全球再也没有风了。可是实际上，地球上的风却并没有呈现“消耗”的趋势。也就是说，除了气压梯度力，还有别的力在对风的形成起到作用。
 
 ### 地转偏向力
-刚才的讨论都有一个前提，就是地球是静止的。但是，实际上地球每时每刻都在以角速度$\Omega=\frac{360\degree}{24小时}=7.2722×10^{−5}rad/s$旋转。这就产生了另一个问题：我们的惯性坐标系并不能适用于旋转的地球，我们需要引入相对变化项来让惯性坐标系能表示地球上的物体。
+刚才的讨论都有一个前提，就是地球是静止的。但是，实际上地球每时每刻都在以角速度 $\Omega=\frac{360\degree}{24小时}=7.2722×10^{−5}rad/s$ 旋转。这就产生了另一个问题：我们的惯性坐标系并不能适用于旋转的地球，我们需要引入相对变化项来让惯性坐标系能表示地球上的物体。
 
 对于地球上运动的物体，可以把他**相对惯性坐标系的运动**看成它**相对地球的运动**和**地球相对惯性坐标系运动**的叠加，也就是
 
-\[\frac{d_aA}{dt}=\frac{dA}{dt}+\vec\Omega\times A\]
+$$\frac{d_aA}{dt}=\frac{dA}{dt}+\vec\Omega\times A$$
 
 其中的A可以是任何物理量。
 
 对于速度，可以令A为位移，则可得到
 
-\[\vec{V_a}=\vec V+\vec\Omega\times\vec r=\vec V+\vec{V_e}\]
+$$\vec{V_a}=\vec V+\vec\Omega\times\vec r=\vec V+\vec{V_e}$$
 
 其中r为运动物体到地球球心的矢量。
 
 这三项分别称为绝对速度，相对速度和牵连速度。如果对令A为速度，则有
 
-\[\frac{d_a\vec V_a}{dt}=\frac{d\vec V_a}{dt}+\vec\Omega\times \vec V_a=\frac{d(\vec V+\vec V_e)}{dt}+\vec\Omega\times (\vec V+\vec V_e)\]
+$$\frac{d_a\vec V_a}{dt}=\frac{d\vec V_a}{dt}+\vec\Omega\times \vec V_a=\frac{d(\vec V+\vec V_e)}{dt}+\vec\Omega\times (\vec V+\vec V_e)$$
 
 如果你能自己推导的话，可以得到下式
 
-\[\frac{d_a\vec V_a}{dt}=\frac{d\vec V}{dt}+2\vec\Omega\times \vec V-\Omega^2\vec R\]
+$$\frac{d_a\vec V_a}{dt}=\frac{d\vec V}{dt}+2\vec\Omega\times \vec V-\Omega^2\vec R$$
 
 其中R为物体到地轴的距离；你可能在推导的时候用到这条公式：$\vec\Omega\times\vec\Omega\times\vec r=(\vec\Omega\vec r)\vec\Omega-(\vec\Omega\vec\Omega)\vec r$
 
-对于上述式子，可以发现速度在转换中多出了两项，其中$-\Omega^2\vec R$比较熟悉，是向心力的角速度写法，但是前面有负号，所以这项是虚拟的离心力；对于$-2\vec\Omega\times \vec V$，称为**地转偏向力**或者**科氏力**，这项表征的是物体相对地球运动时产生的力。
+对于上述式子，可以发现速度在转换中多出了两项，其中 $-\Omega^2\vec R$ 比较熟悉，是向心力的角速度写法，但是前面有负号，所以这项是虚拟的离心力；对于 $-2\vec\Omega\times \vec V$ ，称为**地转偏向力**或者**科氏力**，这项表征的是物体相对地球运动时产生的力。
 
-对于地转偏向力，可以写成标量的形式：$2\Omega\sin\phi\cdot V\vec k=2fV\vec k$。其中的f称为地转参数。
+对于地转偏向力，可以写成标量的形式 $2\Omega\sin\phi\cdot V\vec k=2fV\vec k$ 。其中的f称为地转参数。
 
 科氏力作为一种虚拟力，会平等的作用于每个在地球上运动的物体，风也不例外。在北半球，根据外积的右手法则，可以得到科氏力总是指向物体运动方向的右侧。
 
@@ -50,11 +50,11 @@
 
 对于地转风，根据二力平衡关系，可以得到
 
-\[-f\vec V+\frac{1}{\rho}\nabla\vec{P}=0\]
+$$-f\vec V+\frac{1}{\rho}\nabla\vec{P}=0$$
 
 移项将速度单独提出，得到地转风公式
 
-\[\vec V_g=\frac{1}{\rho f}\nabla\vec P\times\vec k\]
+$$\vec V_g=\frac{1}{\rho f}\nabla\vec P\times\vec k$$
 
 由于梯度力和科氏力二力平衡，所以在一开始，风会先沿等压线梯度方向吹，然后风速逐渐增大，风向也逐渐偏转。最终二力平衡，科氏力与梯度力反向。在北半球总是风向左边为低压，右边为高压，如图所示。
 

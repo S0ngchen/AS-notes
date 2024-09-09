@@ -3,7 +3,7 @@
 ## 什么是大气边界层
 我们生活在大气中，大气的一切运动都和我们息息相关。虽然这么说，但其实相比千米高空发生的事情，我们更想知道我们所生活的范围有什么样的天气。我们生活的地方，最贴近地面的大气，被称为**大气边界层**，或者**行星边界层 (PBL)**。意思是大气的边界地带。在边界层中，由于大气与地表直接接触，会发生一系列有趣的事情：地面摩擦造成的大气动量的剧烈耗散、地面对大气的加热作用、植被湖泊向大气释放水汽……同时他也是我们直接生活的地方。这无不让我们关注这一特殊区域。
 
-### 边界层高度与划分
+## 边界层高度与划分
 我们现在知道边界层如此重要，需要我们研究。但是，边界层的范围是怎么规定的呢？我们先引入流体力学对于边界层的定义：
 
 流体在边界上方流动过程中，边界表面的摩擦力使流体速度在垂直边界上发生切变，造成流体低能部分积累。这一流速减少的部分就是流体边界层。
@@ -32,13 +32,13 @@
 ……
 
 接下来，我们将对边界层中的几个分层展开介绍。但是，由于其中的解释需要涉及一些后续的知识，但为了保证信息的连续性，我把这些部分放在此处。如果你是一位初学者，更推荐先了解[湍流](#湍流)再回头看这一部分。
-#### 贴地层
+### 贴地层
 
-#### 近地面层
+### 近地面层
 
-#### 上部摩擦层
+### 上部摩擦层
 
-### 湍流
+## 湍流
 为了描述边界层中大气的运动，我们需要知道一些用于解析边界层的物理概念与方法。
 
 先看一组真实世界中的气温-时间序列：
@@ -54,7 +54,7 @@
 
 但是，我们讲了半天，到底什么是**湍流 (turbulence)**呢？
 
-#### 什么是湍流
+### 什么是湍流
 
 一般提起流体，我们很容易想到水流，比如水喉流出的水。一般来说，如果流量很小的话，水流呈现出比较稳定的结构
 
@@ -81,7 +81,7 @@
 
 ![图源：https://bkimg.cdn.bcebos.com/pic/0d338744ebf81a4ca55b972edd2a6059242da6e8?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080](https://bkimg.cdn.bcebos.com/pic/0d338744ebf81a4ca55b972edd2a6059242da6e8?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080)
 
-#### 湍流的产生机制
+### 湍流的产生机制
 雷诺（Reynold）在1883年做了一个[实验](https://www.youtube.com/watch?v=y0WRJtXvpSo)（不能播放的话可以看看这个[比较长的版本](https://www.bilibili.com/video/BV14U4y1f7K7)）验证湍流的产生机制。
 
 他发现流体呈现湍流还是层流运动主要取决于：
@@ -102,7 +102,7 @@ $$
 
 不过，雷诺数只是一个用于鉴别流体运动类型的工具，不能反映湍流的产生机制。一般来说，在大气中，湍流主要有两个产生机制：对流热泡和速度梯度。
 
-##### 对流热泡
+#### 对流热泡
 根据之前对于湍流的示意图，湍流的组织形式可以看作一个个小的涡旋 (专业称呼为湍涡，eddy)。你可以利用湍涡对湍流加深理解：**湍流可以看成叠加上许多湍涡的平流运动流体**。
 
 当地面受到太阳辐射加热后，某些受到辐射量比较大的地面温度就会高于周围。热量传导到大气中，就产生了局地的高温热泡。如图所示
@@ -118,10 +118,10 @@ $$
 
 这种风的垂直切变会让气团旋转，产生涡旋。比如图中右边这个风速切变就会产生顺时针的涡旋。这些涡旋也会破碎产生小的湍涡。
 
-#### 湍流的研究方法
+### 湍流的研究方法
 现在我们知道了湍流的产生机制，接下来就要开始正式研究湍流了。
 
-##### 泰勒假设
+#### 泰勒假设
 首先，我们应该获取湍流的资料。但是，由于流体在无时无刻的运动，湍涡也在不停的生消发展，我们该怎么测量一个无时无刻在变化的量呢？在1938年，泰勒（I.G Tylor）提出：**在特定条件下，湍流平移经过传感器时，可以将它看成凝固的。** 即，如果 $\frac{d\xi}{dt} = 0$ ，则有
 
 $$
@@ -136,7 +136,7 @@ $$
 
 这样，区域内物理量随时间的变化就可以通过泰勒假设间接地通过排除时间变量求得。而根据 $\frac{d\xi}{dt} = 0$ ，可知其适用于湍强不太大、风速不太小、均匀湍流、平稳湍流的地区。也就是说，这个方法只能用于获取稳态流动中的湍流信息。
 
-##### 雷诺平均
+#### 雷诺平均
 现在我们算是解决了资料的问题了。接下来，我们需要做另一件事：解方程。
 
 我们知道，大气科学，乃至流体力学，都在试图解决一个核心的问题：Navier-Stokes方程（NS方程）
@@ -158,15 +158,77 @@ $$
 然后，我们再对平均化做出如下规则约束：
 1. $\overline{\bar A}=\bar A$， $\overline{A'}=0$,  $\overline{A'B'}\neq0$
 2. $\overline{\bar A+A'}=\bar A+0=\bar A$
-3. $\overline{(\bar A+A')\cdot(\bar B+B')}=\overline{\bar AB'+\bar A\bar B+A'\bar B+A'B'}=\overline{\bar A\bar B}+\overline{A'}=0$
+3. $\overline{(\bar A+A')\cdot(\bar B+B')}=\overline{\bar AB'+\bar A\bar B+A'\bar B+A'B'}=\overline{\bar A\bar B}+\overline{A'B'}=0$
 
-同时，为了表达式简洁，我们再引入该死的[张量标识法](./basis.markdown#张量表示法)，则可以得到雷诺平均后的方程，即（雷诺平均NS方程，Reynolds-Averaged Navier-Stokes, RANS）
+整个过程可以总结为：只保留纯的平均量或者扰动的二次项（因为扰动的平均是0，而扰动乘上扰动的平均却不一定为0，比如 $\lim_{x\rightarrow0}x\sin(\frac{1}{x})$ ）。
+
+同时，为了表达式简洁，我们再引入该死的[张量标识法](./basis.markdown#张量表示法)。
+
+首先，在用张量表示的各个控制方程如下：
+
+1. 动量方程： $\frac{\partial u_i}{\partial t}+u_j\frac{\partial u_i}{\partial x_j}=-\frac1\rho\frac{\partial p}{\partial x_i}+\epsilon_{i3}g+f\epsilon_{ij3}u_j+\nu\frac{\partial^2 u_i}{{\partial x_j}^2}$
+2. 不可压近似下的连续方程： $\frac{u_j}{x_j}=0$
+3. 状态方程： $p=\rho RT$
+4. 热流量方程： $\frac{\partial\theta}{\partial t}+u_j\frac{\partial\theta}{\partial x_j}=\nu_\theta\frac{\partial^2\theta}{{\partial x_j}^2}-\frac{1}{\rho C_p} \frac{\partial Q_j^*}{\partial x_j} - \frac{L_v E}{\rho C_p}$
+5. 水汽方程： $\frac{\partial q}{\partial t} + u_j \frac{\partial q}{\partial x_i} = \nu_q \frac{\partial^2 q}{\partial x_i^2} + \frac{S_q}{\rho} + \frac{E}{\rho}$
+
+每项的物理意义与推导详见[大气运动的基本方程](./equations.md)。接下来，我们将对每个基本方程计算雷诺平均。
+
+##### 动量方程
+对于
+
+$$
+\frac{\partial u_i}{\partial t}+u_j\frac{\partial u_i}{\partial x_j}=-\frac1\rho\frac{\partial p}{\partial x_i}+\epsilon_{i3}g+f\epsilon_{ij3}u_j+\nu\frac{\partial^2 u_i}{{\partial x_j}^2}
+$$
+
+将速度和压力进行雷诺分解：
+
+$$
+u_i = \overline{u_i} + u_i', \quad p = \overline{p} + p'
+$$
+
+代入原方程，得到：
+
+$$
+\frac{\partial (\overline{u_i} + u_i')}{\partial t} + (\overline{u_j} + u_j') \frac{\partial (\overline{u_i} + u_i')}{\partial x_j} = -\frac{1}{\rho} \frac{\partial (\overline{p} + p')}{\partial x_i} + \epsilon_{i3} g + f \epsilon_{ij3} (\overline{u_j} + u_j') + \nu \frac{\partial^2 (\overline{u_i} + u_i')}{\partial x_j^2}
+$$
+
+求时间平均，得到
+
+$$
+\frac{\partial \overline{u_i}}{\partial t} + \overline{u_j} \frac{\partial \overline{u_i}}{\partial x_j} = -\frac{1}{\rho} \frac{\partial \overline{p}}{\partial x_i} + \epsilon_{i3} g + f \epsilon_{ij3} \overline{u_j} + \nu \frac{\partial^2 \overline{u_i}}{\partial x_j^2} - \frac{\partial \overline{u_i' u_j'}}{\partial x_j}
+$$
+
+上式便是RANS的动量方程。
+
+使用还没求平均的动量方程与RANS动量方程相减，可以得到扰动方程
+
+$$
+\frac{\partial \overline{u_i}}{\partial t} + \overline{u_j} \frac{\partial \overline{u_i}}{\partial x_j} + u_j' \frac{\partial \overline{u_i}}{\partial x_j} + \overline{u_j} \frac{\partial u_i'}{\partial x_j} + u_j' \frac{\partial u_i'}{\partial x_j} = \delta_{i3} g \frac{\theta_v'}{\overline{\theta_v}} + f \epsilon_{ij3} u_j' - \frac{1}{\rho} \frac{\partial p'}{\partial x_i} + \nu \frac{\partial^2 u_i'}{\partial x_j^2} + \frac{\partial \overline{u_i' u_j'}}{\partial x_j}
+$$
+
+##### 连续方程
+
+##### 状态方程
+
+##### 水汽方程
+
+##### 热流量方程
+
+#### 湍流参数化
+
+### 湍流稳定度
 
 
-#### 湍流的发展
+### 湍流的发展
 
-#### 湍流的性质
+### 湍流的性质
 
-### 边界层的特点
+## 边界层的特点
 有了前面对边界层分层的划分，现在
-#### 1. 日变化
+### 1. 日变化
+
+
+
+
+
