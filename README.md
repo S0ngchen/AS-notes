@@ -12,7 +12,7 @@
 #### 大气边界层与湍流 Planetary Boundary Layer & Turbulence
 [行星边界层 Planetary Boundary Layer](./PBL1.md)
 
-[湍流 Turbulence](./PBL2.md)
+[湍流 Turbulence](./turbulence.md)
 
 #### 大气中的风 Wind
 [大气中的风 Wind](./wind.md)
