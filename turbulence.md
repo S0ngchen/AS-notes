@@ -1,43 +1,3 @@
-# 大气边界层
-
-## 什么是大气边界层
-我们生活在大气中，大气的一切运动都和我们息息相关。虽然这么说，但其实相比千米高空发生的事情，我们更想知道我们所生活的范围有什么样的天气。我们生活的地方，最贴近地面的大气，被称为**大气边界层**，或者**行星边界层 (PBL)**。意思是大气的边界地带。在边界层中，由于大气与地表直接接触，会发生一系列有趣的事情：地面摩擦造成的大气动量的剧烈耗散、地面对大气的加热作用、植被湖泊向大气释放水汽……同时他也是我们直接生活的地方。这无不让我们关注这一特殊区域。
-
-## 边界层高度与划分
-我们现在知道边界层如此重要，需要我们研究。但是，边界层的范围是怎么规定的呢？我们先引入流体力学对于边界层的定义：
-
-流体在边界上方流动过程中，边界表面的摩擦力使流体速度在垂直边界上发生切变，造成流体低能部分积累。这一流速减少的部分就是流体边界层。
-
-听起来似乎有点绕，但实际上可以由这张图很明确的解释
-
-![来源：https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Laminar_boundary_layer_scheme.svg/2560px-Laminar_boundary_layer_scheme.svg.png](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Laminar_boundary_layer_scheme.svg/2560px-Laminar_boundary_layer_scheme.svg.png)
-
-在图中流体速度在一定高度之内，会低于最上层的流体，因为上层的流体收到的边界摩擦作用弱，而下层强。这一速度低的区域就是边界层。
-
-由此类推，在大气科学中，行星边界层就可以被简单定义为：大气受到下垫面摩擦影响的薄层。而更严谨的定义如下：
-`大气边界层位于对流层底部，由于直接与地面相贴而受到分子粘性，湍流摩擦，辐射增热，水汽交换，物质扩散各种交换作用和地形的影响，致使湍流应力成为一个重要的因子而不可忽略，与之相联系形成大气边界层`
-
-虽然说人类大部分时间生活在地表不超过100米的地方，这一地方称为边界层，但不代表边界层只有一百米高。根据气象观测，受到不同地区气象条件的差异，边界层的高度在几百米到几千米不等，可以简单的估计为1500m，也就是大约850hPa的高度。
-
-结合大气科学对大气气层的划分，包含了边界层的大气由低到高可以被细致的划分为以下几层：
-
-![来源：https://bkimg.cdn.bcebos.com/pic/0df431adcbef76093a8facc02ddda3cc7dd99eec?x-bce-process=image/format,f_auto/quality,Q_70/resize,m_lfit,limit_1,w_536](https://bkimg.cdn.bcebos.com/pic/0df431adcbef76093a8facc02ddda3cc7dd99eec?x-bce-process=image/format,f_auto/quality,Q_70/resize,m_lfit,limit_1,w_536)
-
-1. 贴地层：这一层的厚度大约2m，是大气最低的一层。在这层中，分子粘性力主导运动，湍流粘性力小。
-2. 近地面层：这一层的厚度大约100m。这层分子粘性力的影响随高度迅速减弱，湍流粘性力的影响相对增强。由于这层中的各个物理量（动量、水汽等）的垂直输送基本不随高度变化，又被称为**常值通量层**。
-3. 上部摩擦层：再往上，湍流粘性力的影响被科氏力反超，呈现湍流粘性力、科氏力与气压梯度力三力平衡的形式。由于Ekman对本层的重要贡献，这层又称Ekman层。
-4. 自由大气：这一层属于对流层除去行星边界层剩下的的部分。其中的湍流粘性力可以忽略，因此被称为自由大气。
-5. 平流层
-6. 热层
-……
-
-接下来，我们将对边界层中的几个分层展开介绍。但是，由于其中的解释需要涉及一些后续的知识，但为了保证信息的连续性，我把这些部分放在此处。如果你是一位初学者，更推荐先了解[湍流](#湍流)再回头看这一部分。
-### 贴地层
-
-### 近地面层
-
-### 上部摩擦层
-
 ## 湍流
 为了描述边界层中大气的运动，我们需要知道一些用于解析边界层的物理概念与方法。
 
@@ -225,7 +185,7 @@ $$
 如果用雷诺展开方程减去雷诺时均方程，就可以得到
 
 $$
-\frac{\partial \overline{u_i}}{\partial t} + \overline{u_j} \frac{\partial \overline{u_i}}{\partial x_j} + u_j' \frac{\partial \overline{u_i}}{\partial x_j} + \overline{u_j} \frac{\partial u_i'}{\partial x_j} + u_j' \frac{\partial u_i'}{\partial x_j} = \delta_{i3} g \frac{\theta_v'}{\overline{\theta_v}} + f \epsilon_{ij3} u_j' - \frac{1}{\rho} \frac{\partial p'}{\partial x_i} + \nu \frac{\partial^2 u_i'}{\partial x_j^2} + \frac{\partial \overline{u_i' u_j'}}{\partial x_j}
+\frac{\partial u_i'}{\partial t} + \overline{u_j} \frac{\partial u_i'}{\partial x_j} + u_j' \frac{\partial \overline{u_i}}{\partial x_j} + u_j' \frac{\partial u_i'}{\partial x_j} + \overline{u_j} \frac{\partial u_i'}{\partial x_j} = \delta_{i3} g \frac{\theta_v'}{\overline{\theta_v}} + f \epsilon_{ij3} u_j' - \frac{1}{\rho} \frac{\partial p'}{\partial x_i} + \nu \frac{\partial^2 u_i'}{\partial x_j^2} + \frac{\partial \overline{u_i' u_j'}}{\partial x_j}
 $$
 
 这条充满了脉动的方程，我们称之为**脉动方程**。这条方程表征的是湍流脉动的变化。
@@ -328,7 +288,46 @@ $$
 \frac{\partial \theta'}{\partial t} + \overline{u_j} \frac{\partial \theta'}{\partial x_j} + u_j' \frac{\partial \overline{\theta}}{\partial x_j} + u_j' \frac{\partial \theta'}{\partial x_j} + \overline{u_j} \frac{\partial \theta'}{\partial x_j} = \nu_\theta \frac{\partial^2 \theta'}{\partial x_j^2} + \frac{\partial \overline{u_j' \theta'}}{\partial x_j} - \frac{1}{\rho C_p} \frac{\partial Q_j^*}{\partial x_j}
 $$
 
+相似的， $\frac{\partial \overline{u_j' \theta'}}{\partial x_j}$ 项也表示湍流对于热流量的输送作用。
+
+##### 湍流动能方程
+为了得到湍流发展过程中的能量传递过程，我们需要引入湍流动能。首先，在[大气能量学]()中，我们认识到了流体的动能 $E_k=\frac{\vec V^2}{2}$ 。又由于雷诺分解后，速度可以表达成 $V=\bar V + V'$，那么对于速度推出的能量也有 $E_total =\frac{\vec V^2}{2}=E_{MKE}+E_{TKE}$ 。在这个式子中， $E_{MKE}$ 表示平均动能，即湍流运动中有序运动那部分流场的动能； $E_{TKE}$ 表示湍流动能，即流场中做无序运动的那部分动能。由于湍流动能是无序的运动，这意味着它可能出现在各个方向上。为此，为了精确描述他们的分布， $E_{TKE}$ 需要写成 $E_{TKE}=\frac{\bar {u'^{2}}+\bar {v'^{2}}+\bar {w'^{2}}}{2}$ ，即将它们在各个方向上的分量相加。
+
+这样，搜寻之前的知识，需要预报湍流动能与时间的关系，需要用到动量方程的脉动形式
+
+$$
+\frac{\partial u_i'}{\partial t} + \overline{u_j} \frac{\partial u_i'}{\partial x_j} + u_j' \frac{\partial \overline{u_i}}{\partial x_j} + u_j' \frac{\partial u_i'}{\partial x_j} = \delta_{i3} g \frac{\theta_v'}{\overline{\theta_v}} + f \epsilon_{ij3} u_j' - \frac{1}{\rho} \frac{\partial p'}{\partial x_i} + \nu \frac{\partial^2 u_i'}{\partial x_j^2} + \frac{\partial \overline{u_i' u_j'}}{\partial x_j}
+$$
+
+所有项乘上 $2u_i'$ ，得到
+
+$$
+2u_i'\frac{\partial u_i'}{\partial t} + 2u_i'\overline{u_j} \frac{\partial u_i'}{\partial x_j} + 2u_j' u_i'\frac{\partial \overline{u_i}}{\partial x_j} = 2u_i'\delta_{i3} g \frac{\theta_v'}{\overline{\theta_v}} + 2u_i'f \epsilon_{ij3} u_j' - 2u_i'\frac{1}{\rho} \frac{\partial p'}{\partial x_i} + 2u_i'\nu \frac{\partial^2 u_i'}{\partial x_j^2} + 2u_i'\frac{\partial \overline{u_i' u_j'}}{\partial x_j}
+$$
+
+稍微整理下，得到
+$$
+\frac{\partial u_i'^2}{\partial t} + \overline{u_j} \frac{\partial u_i'^2}{\partial x_j} + u_i' u_j'\frac{\partial \overline{u_i}}{\partial x_j} + u_i'u_j' \frac{\partial u_j'}{\partial x_i} = \delta_{i3} g u_i' \frac{\theta_v'}{\overline{\theta_v}} + \epsilon_{ij3} u_j' u_i'f - u_i'\frac{1}{\rho} \frac{\partial p'}{\partial x_i} + u_i'\nu \frac{\partial^2 u_i'}{\partial x_j^2} + u_i'\frac{\partial \overline{u_i' u_j'}}{\partial x_j}
+$$
+
+求时均，得**湍流方差预报方程**。（为什么叫湍流方差预报方程，是由于这个方程是基于速度平方对时间的平均，而平方的平均就是方差，所以也称为方差预报方程）
+
+$$
+\frac{\partial \overline{u_i'^{2}}}{\partial t} + \overline{u_j} \frac{\partial \overline{u_i'^{2}}}{\partial x_j} + 2 \overline{u_i' u_j'} \frac{\partial \overline{u_i}}{\partial x_j} + 2 \overline{u_i' u_j' \frac{\partial u_i}{\partial x_j}} = -2 \delta_{i3} g \frac{\overline{u_i' \theta_v'}}{\overline{\theta_v}} + 2 f \epsilon_{ij3} \overline{u_i' u_j'} - \frac{2}{\rho} \overline{u_i' \frac{\partial p'}{\partial x_i}} + 2 \nu \overline{u_i' \frac{\partial^2 u_i'}{\partial x_j^2}} + 2 \overline{u_i'} \frac{\partial \overline{u_i' u_j'}}{\partial x_j}
+$$
+
+这个方法无论怎么看都无比复杂，如果实际操作这样的方程将造成计算量的大提升。为此，我们需要一些合适的方法简化这个方程。
+
+对于最后一项， $ 2 \overline{u_i'} \frac{\partial \overline{u_i' u_j'}}{\partial x_j}$ ，尽管 $\frac{\partial \overline{u_i' u_j'}}{\partial x_j}$ 并不是0（因为其是扰动的乘积），但再乘上一个微小的扰动，让它变成了一个小量，我们在此约去。
+
+对于倒数第二项耗散项 $2 \nu \overline{u_i' \frac{\partial^2 u_i'}{\partial x_j^2}}$ ，
+
+
+
 #### 湍流参数化
+经过上述的过程，我们得到了雷诺平均后的控制方程组如下：
+
+
 
 ### 湍流稳定度
 
@@ -336,12 +335,3 @@ $$
 ### 湍流的发展
 
 ### 湍流的性质
-
-## 边界层的特点
-有了前面对边界层分层的划分，现在
-### 1. 日变化
-
-
-
-
-
