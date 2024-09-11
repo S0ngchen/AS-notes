@@ -167,10 +167,10 @@ $$
 首先，在用张量表示的各个控制方程如下：
 
 1. 动量方程： $\frac{\partial u_i}{\partial t}+u_j\frac{\partial u_i}{\partial x_j}=-\frac1\rho\frac{\partial p}{\partial x_i}+\epsilon_{i3}g+f\epsilon_{ij3}u_j+\nu\frac{\partial^2 u_i}{{\partial x_j}^2}$
-2. 不可压近似下的连续方程： $\frac{u_j}{x_j}=0$
+2. 水汽方程： $\frac{\partial q}{\partial t} + u_j \frac{\partial q}{\partial x_i} = \nu_q \frac{\partial^2 q}{\partial x_i^2} + \frac{S_q}{\rho} + \frac{E}{\rho}$
 3. 状态方程： $p=\rho RT$
 4. 热流量方程： $\frac{\partial\theta}{\partial t}+u_j\frac{\partial\theta}{\partial x_j}=\nu_\theta\frac{\partial^2\theta}{{\partial x_j}^2}-\frac{1}{\rho C_p} \frac{\partial Q_j^*}{\partial x_j} - \frac{L_v E}{\rho C_p}$
-5. 水汽方程： $\frac{\partial q}{\partial t} + u_j \frac{\partial q}{\partial x_i} = \nu_q \frac{\partial^2 q}{\partial x_i^2} + \frac{S_q}{\rho} + \frac{E}{\rho}$
+5. 不可压近似下的连续方程： $\frac{u_j}{x_j}=0$
 
 每项的物理意义与推导详见[大气运动的基本方程](./equations.md)。接下来，我们将对每个基本方程计算雷诺平均。
 
@@ -181,11 +181,7 @@ $$
 \frac{\partial u_i}{\partial t}+u_j\frac{\partial u_i}{\partial x_j}=-\frac1\rho\frac{\partial p}{\partial x_i}+\epsilon_{i3}g+f\epsilon_{ij3}u_j+\nu\frac{\partial^2 u_i}{{\partial x_j}^2}
 $$
 
-将速度和压力进行雷诺分解：
-
-$$
-u_i = \overline{u_i} + u_i', \quad p = \overline{p} + p'
-$$
+将速度和压力进行雷诺分解： $u_i = \overline{u_i} + u_i', \quad p = \overline{p} + p'$ 。由于密度的扰动相对自身不大，所以这里不分解密度项。
 
 代入原方程，得到：
 
@@ -199,21 +195,138 @@ $$
 \frac{\partial \overline{u_i}}{\partial t} + \overline{u_j} \frac{\partial \overline{u_i}}{\partial x_j} = -\frac{1}{\rho} \frac{\partial \overline{p}}{\partial x_i} + \epsilon_{i3} g + f \epsilon_{ij3} \overline{u_j} + \nu \frac{\partial^2 \overline{u_i}}{\partial x_j^2} - \frac{\partial \overline{u_i' u_j'}}{\partial x_j}
 $$
 
-上式便是RANS的动量方程。
+上式便是RANS的动量方程。可以发现，这个方程与最初的方程有很大的相似之处：在把原方程所有的速度和气压取了平均然后多出了一项 
 
-使用还没求平均的动量方程与RANS动量方程相减，可以得到扰动方程
+使用还没求平均的动量方程与RANS动量方程相减，可以得到扰动方程 $\frac{\partial \overline{u_i' u_j'}}{\partial x_j}$ 。这项被称为雷诺应力项，表示由于速度扰动引起的动量传输，也就是湍流粘性应力。我们可以说雷诺应力$\frac{\partial \overline{u_i' u_j'}}{\partial x_j}$ （其中i, j是确切的量）是通过 $u_i$ 方向的面向  $u_j$方向传输的脉动动量。接下来我将向你证明为什么可以这么说。首先借用一下别人的图来演示，所以请忽视图上的文字。
+
+![图源：https://www.srmcad.com/wp-content/uploads/2021/07/10.2.png](https://www.srmcad.com/wp-content/uploads/2021/07/10.2.png)
+
+对于一个雷诺应力分量，比如说上表面的x方向 
+
+$$
+\frac{\partial \overline{u_3' u_1'}}{\partial x_1}=\frac{\partial \overline{w' u'}}{\partial x}
+$$ 
+
+如果将将单位质量（也就是密度）还给它，就会变成这样
+
+$$
+\overline{\bar\rho w' u'}
+$$
+
+对于这个分量，是不是很像动量 $Ft=MV$ ？如果你没看明白，那我再对它动点手脚：
+$$
+Ft=MV \Rightarrow F=\frac{MV}{t}=\frac{ML^3V}{L^3t}=\frac{\rho LVS}{t}={\rho V_1V_2S}
+$$
+
+如果是单位面积 （ $S=1$ ），那就和上面的雷诺应力完全一致了！（虽然实际上这样的证明是很不严谨的）这样看来，雷诺应力是一个作用于流体微团表面的力。我们可以把流体微团看成一个微小的立方体。对于这个立方体，有上下，左右，前后三个轴向的面，每个方向的面也能受到x, y, z三个方向的力。也就是说，湍流粘性力，雷诺应力，实质上是湍流对流体微团表面动量的输送。
+
+继续，我们可以用 $\tau_{31}=\overline{\bar\rho w' u'}$ 表示上下表面在x轴上的湍流粘性力。对于流体微团，下表面的湍流粘性应力为 $\tau_{31}|_z$ ，上表面为 $\tau_{31}+|_{z+dz}$ 两个面产生的合力即为 $\frac{(\tau_{31}|_{z}-\tau_{31}|_{z+dz})dxdy}{dxdydz}=\frac{\partial \overline{\bar\rho w' u'}}{\partial x}$。
+
+如果用雷诺展开方程减去雷诺时均方程，就可以得到
 
 $$
 \frac{\partial \overline{u_i}}{\partial t} + \overline{u_j} \frac{\partial \overline{u_i}}{\partial x_j} + u_j' \frac{\partial \overline{u_i}}{\partial x_j} + \overline{u_j} \frac{\partial u_i'}{\partial x_j} + u_j' \frac{\partial u_i'}{\partial x_j} = \delta_{i3} g \frac{\theta_v'}{\overline{\theta_v}} + f \epsilon_{ij3} u_j' - \frac{1}{\rho} \frac{\partial p'}{\partial x_i} + \nu \frac{\partial^2 u_i'}{\partial x_j^2} + \frac{\partial \overline{u_i' u_j'}}{\partial x_j}
 $$
 
-##### 连续方程
-
-##### 状态方程
+这条充满了脉动的方程，我们称之为**脉动方程**。这条方程表征的是湍流脉动的变化。
 
 ##### 水汽方程
+根据我们对于动量方程的处理，我们可以总结导出雷诺时均方程操作流程：
+1. 将物理量雷诺展开成平均量与扰动量
+2. 对展开后的方程求时间平均
+3. 得到平均方程
+4. 平均方程减去原方程的平均
+5. 得到脉动方程
+
+应用这套流程
+
+由水汽方程
+
+$$
+\frac{\partial q}{\partial t} + u_j \frac{\partial q}{\partial x_i} = \nu_q \frac{\partial^2 q}{\partial x_i^2} + \frac{S_q}{\rho} + \frac{E}{\rho}
+$$
+
+对水汽含量、速度进行雷诺分解
+
+$$
+q = \overline{q} + q', \quad u_j = \overline{u_j} + u_j'
+$$
+
+代入原方程并求平均， 最终得到水汽的平均方程
+
+$$
+\frac{\partial \overline{q}}{\partial t} + \overline{u_j} \frac{\partial \overline{q}}{\partial x_i} = \nu_q \frac{\partial^2 \overline{q}}{\partial x_i^2} + \frac{\overline{S_q}}{\overline{\rho}} + \frac{\overline{E}}{\overline{\rho}} - \frac{\partial \overline{u_j' q'}}{\partial x_i}
+$$
+
+与脉动方程
+
+$$
+\frac{\partial q'}{\partial t} + \overline{u_j} \frac{\partial q'}{\partial x_j} + u_j' \frac{\partial \overline{q}}{\partial x_j} + u_j' \frac{\partial q'}{\partial x_j} + \overline{u_j} \frac{\partial q'}{\partial x_j} = \nu_q \frac{\partial^2 q'}{\partial x_j^2} + \frac{\partial \overline{u_j' q'}}{\partial x_j}
+$$
+
+其中 $\frac{\partial \overline{u_j' q'}}{\partial x_i}$ 项与雷诺应力项类似，也是湍流作用项，但这项作用的不再是对动量而是水汽的输送作用。
+
+##### 状态方程
+对于状态方程
+
+$$
+p = \rho R T
+$$
+
+对压力、密度和温度进行雷诺分解
+
+$$
+p = \overline{p} + p', \quad \rho = \overline{\rho} + \rho', \quad T = \overline{T} + T'
+$$
+
+代入状态方程
+$$
+\overline{p} + p' = (\overline{\rho} + \rho')R(\overline{T} + T')
+$$
+
+并求平均得到平均方程
+
+$$
+\overline{p} = R(\overline{\bar\rho\bar T}+\overline{\rho'T'})
+$$
+
+##### 连续方程
+由于连续方程实在是太简单了（在0级近似的情况下），这里就不推导了，直接给出连续方程的平均方程
+
+$$
+\frac{\bar u_j}{x_j}=0
+$$
+
+与扰动方程
+
+$$
+\frac{u'_j}{x_j}=0
+$$
 
 ##### 热流量方程
+对热流量方程
+
+$$
+\frac{\partial \theta}{\partial t} + u_j \frac{\partial \theta}{\partial x_j} = \nu_\theta \frac{\partial^2 \theta}{\partial x_j^2} - \frac{1}{\rho C_p} \frac{\partial Q_j^*}{\partial x_j} - \frac{L_v E}{\rho C_p}
+$$
+
+的温度、速度等进行雷诺分解
+
+$$
+\theta = \overline{\theta} + \theta', \quad u_j = \overline{u_j} + u_j', \quad Q_j^* = \overline{Q_j^*} + Q_j^{*'}
+$$
+
+代入原方程并求平均并得到最终的平均热流方程
+
+$$
+\frac{\partial \overline{\theta}}{\partial t} + \overline{u_j} \frac{\partial \overline{\theta}}{\partial x_j} = \nu_\theta \frac{\partial^2 \overline{\theta}}{\partial x_j^2} - \frac{1}{\overline{\rho} C_p} \frac{\partial \overline{Q_j^*}}{\partial x_j} - \frac{L_v \overline{E}}{\overline{\rho} C_p} - \frac{\partial \overline{u_j' \theta'}}{\partial x_j}
+$$
+
+与扰动方程
+
+$$
+\frac{\partial \theta'}{\partial t} + \overline{u_j} \frac{\partial \theta'}{\partial x_j} + u_j' \frac{\partial \overline{\theta}}{\partial x_j} + u_j' \frac{\partial \theta'}{\partial x_j} + \overline{u_j} \frac{\partial \theta'}{\partial x_j} = \nu_\theta \frac{\partial^2 \theta'}{\partial x_j^2} + \frac{\partial \overline{u_j' \theta'}}{\partial x_j} - \frac{1}{\rho C_p} \frac{\partial Q_j^*}{\partial x_j}
+$$
 
 #### 湍流参数化
 
