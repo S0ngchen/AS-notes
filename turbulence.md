@@ -240,6 +240,7 @@ p = \overline{p} + p', \quad \rho = \overline{\rho} + \rho', \quad T = \overline
 $$
 
 代入状态方程
+
 $$
 \overline{p} + p' = (\overline{\rho} + \rho')R(\overline{T} + T')
 $$
