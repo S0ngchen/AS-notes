@@ -7,6 +7,9 @@
 ### 基础知识 Basic Knowledge to Atmospheric Science  
 [基础知识 1 Basic Knowledge to Atmospheric Science 1](./basis.markdown)
 
+### 大气物理学 Atmospheric Physics
+[大气中的水汽](./humidity.md)
+
 ### 动力学 Atmospheric Dynamics
 
 #### 大气边界层与湍流 Planetary Boundary Layer & Turbulence
