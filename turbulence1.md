@@ -41,42 +41,7 @@
 
 ![图源：https://bkimg.cdn.bcebos.com/pic/0d338744ebf81a4ca55b972edd2a6059242da6e8?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080](https://bkimg.cdn.bcebos.com/pic/0d338744ebf81a4ca55b972edd2a6059242da6e8?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080)
 
-### 湍流的产生机制
-雷诺（Reynold）在1883年做了一个[实验](https://www.youtube.com/watch?v=y0WRJtXvpSo)（不能播放的话可以看看这个[比较长的版本](https://www.bilibili.com/video/BV14U4y1f7K7)）验证湍流的产生机制。
-
-他发现流体呈现湍流还是层流运动主要取决于：
-1. 流体流速
-2. 管子直径
-3. 液体性质
-
-根据这个性质，他得出了雷诺数（Reynolds number）：
-
-$$
-\text{Re}=\frac{\rho U L}{\mu}=\frac{U L}{\nu}
-$$
-
-其中 $\nu=\frac{\mu}{\rho}$ ，表示运动粘度。
-关于这个式子具体的介绍，我会放在[动力学基础](./basis.markdown)中（如果我想得起来更的话XD）
-
-通过计算雷诺数，我们可以得到湍流的运动类型式层流还是湍流。当雷诺数大于临界雷诺数 $Re_c$ 时，流体从层流转变。
-
-不过，雷诺数只是一个用于鉴别流体运动类型的工具，不能反映湍流的产生机制。一般来说，在大气中，湍流主要有两个产生机制：对流热泡和速度梯度。
-
-#### 对流热泡
-根据之前对于湍流的示意图，湍流的组织形式可以看作一个个小的涡旋 (专业称呼为湍涡，eddy)。你可以利用湍涡对湍流加深理解：**湍流可以看成叠加上许多湍涡的平流运动流体**。
-
-当地面受到太阳辐射加热后，某些受到辐射量比较大的地面温度就会高于周围。热量传导到大气中，就产生了局地的高温热泡。如图所示
-
-![如图所示红色就是热泡，来源http://pic3.zhimg.com/70/418ab4820aadaeb58d6cdbe71a700382_b.jpg](http://pic3.zhimg.com/70/418ab4820aadaeb58d6cdbe71a700382_b.jpg)
-
-当热泡上升脱离地面后（详细的描述可以参考[这篇文章的 “2、成因” 部分](https://daily.zhihu.com/story/8113698)），会因为失去能量源而破碎。破碎的热泡就像浴缸中的泡泡一样变成更小的泡泡，这些小泡泡就是湍涡。
-
-#### 剪切作用
-第二种情况是风的剪切作用。当风吹过地表，受到地表的阻曳作用，靠近地表的风速会小于远离地表的风速。
-
-![来源：https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Laminar_boundary_layer_scheme.svg/2560px-Laminar_boundary_layer_scheme.svg.png](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Laminar_boundary_layer_scheme.svg/2560px-Laminar_boundary_layer_scheme.svg.png)
-
-这种风的垂直切变会让气团旋转，产生涡旋。比如图中右边这个风速切变就会产生顺时针的涡旋。这些涡旋也会破碎产生小的湍涡。
+实际上，湍流大量存在于我们生活之中。如果你感兴趣，可以看看这个[视频](https://www.youtube.com/watch?v=RkewD966Y90)。
 
 ### 湍流的研究方法
 现在我们知道了湍流的产生机制，接下来就要开始正式研究湍流了。
@@ -118,9 +83,49 @@ $$
 #### 湍流闭合与参数化
 经过上述的过程，我们得到了雷诺平均后的控制方程组如下：
 
+### 湍流的产生机制
+雷诺（Reynold）在1883年做了一个[实验](https://www.youtube.com/watch?v=y0WRJtXvpSo)（不能播放的话可以看看这个[比较长的版本](https://www.bilibili.com/video/BV14U4y1f7K7)）验证管道中湍流的产生机制。
+
+他发现流体呈现湍流还是层流运动主要取决于：
+1. 流体流速
+2. 管子直径
+3. 液体性质
+
+根据这个性质，他得出了雷诺数（Reynolds number）：
+
+$$
+\text{Re}=\frac{\rho U L}{\mu}=\frac{U L}{\nu}
+$$
+
+其中 $\nu=\frac{\mu}{\rho}$ ，表示运动粘度。
+关于这个式子具体的介绍，我会放在[基础知识](./basis.markdown#雷诺数)章节中（如果我想得起来更的话XD）
+
+通过计算雷诺数，我们可以得到湍流的运动类型式层流还是湍流。当雷诺数大于临界雷诺数 $Re_c$ 时，流体从层流转变。
+
+不过，雷诺数只是一个用于鉴别流体运动类型的工具，不能反映湍流的产生机制。一般来说，在大气中，湍流主要有两个产生机制：对流热泡和速度梯度。我们从[湍流动能方程](./RANS.md#湍流动能方程)中可以看出一点端倪。
+
+#### 对流热泡
+根据之前对于湍流的示意图，湍流的组织形式可以看作一个个小的涡旋 (专业称呼为湍涡，eddy)。你可以利用湍涡对湍流加深理解：**湍流可以看成叠加上许多湍涡的平流运动流体**。
+
+当地面受到太阳辐射加热后，某些受到辐射量比较大的地面温度就会高于周围。热量传导到大气中，就产生了局地的高温热泡。如图所示
+
+![如图所示红色就是热泡，来源http://pic3.zhimg.com/70/418ab4820aadaeb58d6cdbe71a700382_b.jpg](http://pic3.zhimg.com/70/418ab4820aadaeb58d6cdbe71a700382_b.jpg)
+
+当热泡上升脱离地面后（详细的描述可以参考[这篇文章的 “2、成因” 部分](https://daily.zhihu.com/story/8113698)），会因为失去能量源而破碎。破碎的热泡就像浴缸中的泡泡一样变成更小的泡泡，这些小泡泡就是湍涡。
+
+#### 剪切作用
+第二种情况是风的剪切作用。当风吹过地表，受到地表的阻曳作用，靠近地表的风速会小于远离地表的风速。
+
+![来源：https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Laminar_boundary_layer_scheme.svg/2560px-Laminar_boundary_layer_scheme.svg.png](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Laminar_boundary_layer_scheme.svg/2560px-Laminar_boundary_layer_scheme.svg.png)
+
+这种风的垂直切变会让气团旋转，产生涡旋。比如图中右边这个风速切变就会产生顺时针的涡旋。这些涡旋也会破碎产生小的湍涡。
+
 ### 湍流稳定度
 
 
 ### 湍流的发展
 
 ### 湍流的性质
+
+## 参考书目
+[princeton mae 553](http://profs.sci.univr.it/~zuccher/downloads/FD-MAE553-Smits.pdf)
