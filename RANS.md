@@ -227,7 +227,7 @@ $$
 的温度、速度等进行雷诺分解
 
 $$
-\theta = \overline{\theta} + \theta', \quad u_j = \overline{u_j} + u_j', \quad Q_j^* = \overline{Q_j^*} + Q_j^{*'}
+\theta = \overline{\theta} + \theta', \quad u_j = \overline{u_j} + u_j', \quad Q_j^* = \overline{Q_j^*} + {Q'_j}^*
 $$
 
 代入原方程并求平均并得到最终的平均热流方程
