@@ -47,7 +47,7 @@
 现在我们知道了湍流的产生机制，接下来就要开始正式研究湍流了。
 
 #### 泰勒假设
-首先，我们应该获取湍流的资料。但是，由于流体在无时无刻的运动，湍涡也在不停的生消发展，我们该怎么测量一个无时无刻在变化的量呢？在1938年，泰勒（I.G Tylor）提出：**在特定条件下，湍流平移经过传感器时，可以将它看成凝固的。** 即，如果 $\frac{d\xi}{dt} = 0$ ，则有
+首先，我们应该获取湍流的资料。但是，由于流体在无时无刻的运动，湍涡也在不停的生消发展，我们无法测量一个无时无刻在变化的量，只能测量在一定事件内的平均量（尽管这个时间间隔可以很小）。在1938年，泰勒（I.G Tylor）提出：**在特定条件下，湍流平移经过传感器时，可以将它看成凝固的。** 即，如果 $\frac{d\xi}{dt} = 0$ ，则有
 
 $$
 \frac{d\xi}{dt} = \frac{\partial \xi}{\partial t} + U \frac{\partial \xi}{\partial x} + V \frac{\partial \xi}{\partial y} + W \frac{\partial \xi}{\partial z}
@@ -73,15 +73,57 @@ $$
 或者写成大气科学领域更为熟悉的方式
 
 $$
-\frac{d\vec{V}_h}{dt} = -f \vec{k} \times \vec{V} - \frac{1}{\rho} \nabla P
+\frac{d\vec{V}_h}{dt} = -f \vec{k} \times \vec{V} - \frac{1}{\rho} \nabla P + \nu\nabla^2\vec V
 $$
 
-但是，众所周知，这是一个极其难以求解的，高度非线性的方程，我们必须使用一些技巧来辅助我们求解。在计算流体力学（Computational Fluid Dynamics, CFD）中有两个常用的方法：雷诺平均方法（Reynolds-Averaged Navier-Stokes, RANS）和大涡模拟方法（Large Eddy Simulation, LES）。
+但是，众所周知，这是一个极其难以求解的，高度非线性的方程。如果我们对其**直接建模 (Direct Numerical Simulation DNS)**，将会耗费极大的计算资源。我们必须使用一些技巧来简化方程以辅助我们求解。在计算流体力学（Computational Fluid Dynamics, CFD）中有两个常用的方法完成这个任务：**雷诺平均方法（Reynolds-Averaged Navier-Stokes, RANS）**和**大涡模拟方法（Large Eddy Simulation, LES）**。
 
 我们先介绍更为常见[RANS方法](./RANS.md)，接下来的讲解也将围绕着RANS进行。如果后续有需要的话，我再更新[LES方法](./LES.md)。
 
+根据上述对雷诺平均方程的分析，我们得到了如下式子
+
+##### 平均方程
+1. 状态方程 $\overline{p} = \overline{\rho} R_d \overline{T_v}$
+2. 连续方程 $\frac{\partial \overline{u_j}}{\partial x_j} = 0$
+3. 动量方程 $\frac{\partial \overline{u_i}}{\partial t} + \overline{u_j} \frac{\partial \overline{u_i}}{\partial x_j} = -\delta_{i3} g + f_c \epsilon_{ijk} \overline{u_j} - \frac{1}{\rho} \frac{\partial \overline{p}}{\partial x_i} + \nu \frac{\partial^2 \overline{u_i}}{\partial x_j^2} - \frac{\partial \overline{u_i' u_j'}}{\partial x_j}$
+4. 热流量方程 $\frac{\partial \overline{\theta}}{\partial t} + \overline{u_j} \frac{\partial \overline{\theta}}{\partial x_j} = \nu_\theta \frac{\partial^2 \overline{\theta}}{\partial x_j^2} - \frac{1}{\rho C_p} \left( L_v E + \frac{\partial \overline{Q_j^*}}{\partial x_j} \right) - \frac{\partial \overline{u_j' \theta'}}{\partial x_j}$
+5. 水汽方程 $\frac{\partial \overline{q}}{\partial t} + \overline{u_j} \frac{\partial \overline{q}}{\partial x_j} = \nu_q \frac{\partial^2 \overline{q}}{\partial x_j^2} + \frac{S_q}{\rho} + \frac{E}{\rho} - \frac{\partial \overline{u_j' q'}}{\partial x_j}$
+
+##### 扰动方程
+1. 状态方程 $\frac{\rho'}{\overline{\rho}} = \frac{T_v'}{\overline{T_v}}$ 或 $\frac{\rho'}{\overline{\rho}} = - \frac{\theta_v'}{\overline{\theta_v}}$
+2. 连续方程 $\frac{\partial u_j'}{\partial x_j} = 0$
+3. 动量方程 $\frac{\partial u_i'}{\partial t} + u_j \frac{\partial u_i'}{\partial x_j} + u_j' \frac{\partial \overline{u_i}}{\partial x_j} + u_j' \frac{\partial u_i'}{\partial x_j} + \overline{u_j} \frac{\partial u_i'}{\partial x_j} = \delta_{i3} g \frac{\theta_v'}{\overline{\theta_v}} + f \epsilon_{ij3} u_j' - \frac{1}{\rho} \frac{\partial p'}{\partial x_i} + \nu \frac{\partial^2 u_i'}{\partial x_j^2} + \frac{\partial \overline{u_i' u_j'}}{\partial x_j}$
+4. 热流量方程 $\frac{\partial \theta'}{\partial t} + \overline{u_j} \frac{\partial \theta'}{\partial x_j} + u_j' \frac{\partial \overline{\theta}}{\partial x_j} + u_j' \frac{\partial \theta'}{\partial x_j} + \overline{u_j} \frac{\partial \theta'}{\partial x_j} = \nu_\theta \frac{\partial^2 \theta'}{\partial x_j^2} + \frac{\partial \overline{u_j' \theta'}}{\partial x_j} - \frac{1}{\rho C_p} \frac{\partial Q_j^*}{\partial x_j}$
+5. 水汽方程 $\frac{\partial q'}{\partial t} + \overline{u_j} \frac{\partial q'}{\partial x_j} + u_j' \frac{\partial \overline{q}}{\partial x_j} + u_j' \frac{\partial q'}{\partial x_j} + \overline{u_j} \frac{\partial q'}{\partial x_j} = \nu_q \frac{\partial^2 q'}{\partial x_j^2} + \frac{\partial \overline{u_j' q'}}{\partial x_j}$
+
 #### 湍流闭合与参数化
-经过上述的过程，我们得到了雷诺平均后的控制方程组（RANS）如下：
+但是，这里引入的雷诺应力项虽然确实简化了我们的方程，但是也带来了新的问题。对于平均量方程，由于多出了新的未知数 $u'$ 等，导致未知数的数量多于方程的数量，方程无法闭合了。
+
+既然如此，对应的，我们有两种思路能让湍流方程重新闭合：
+1. 增加方程的数量
+2. 减少未知数的个数
+
+先说第一种方案。以动量方程为例
+
+$$
+\frac{\partial \overline{u_i}}{\partial t} + \overline{u_j} \frac{\partial \overline{u_i}}{\partial x_j} = -\delta_{i3} g + f_c \epsilon_{ijk} \overline{u_j} - \frac{1}{\rho} \frac{\partial \overline{p}}{\partial x_i} + \nu \frac{\partial^2 \overline{u_i}}{\partial x_j^2} - \frac{\partial \overline{u_i' u_j'}}{\partial x_j}
+$$
+
+我们需要考虑加多一条式子消去雷诺应力项 $\frac{\partial \overline{u_i' u_j'}}{\partial x_j}$ 。
+
+由于扰动方程
+
+$$
+\frac{\partial u_i'}{\partial t} + u_j \frac{\partial u_i'}{\partial x_j} + u_j' \frac{\partial \overline{u_i}}{\partial x_j} + u_j' \frac{\partial u_i'}{\partial x_j} + \overline{u_j} \frac{\partial u_i'}{\partial x_j} = \delta_{i3} g \frac{\theta_v'}{\overline{\theta_v}} + f \epsilon_{ij3} u_j' - \frac{1}{\rho} \frac{\partial p'}{\partial x_i} + \nu \frac{\partial^2 u_i'}{\partial x_j^2} + \frac{\partial \overline{u_i' u_j'}}{\partial x_j}
+$$
+
+中恰巧含有雷诺应力中的一部分 $\frac{\partial u_i'}{\partial t}$ ，可以通过对其同乘 $u'_j$ 再求时均来产生 $\overline{u'_iu'_j}$ 。但是这会产生一个小问题：我们会一不小心又制造出了一个未知数 $\overline{u'_iu'_j\frac{\partial u'_i}{\partial x_j}}$ （这条完整的式子过于复杂丑陋，我就不放上来了，感兴趣的话可以自己推以下）。为了解决掉这个三阶应力，我们需要再引入一个式子。很可惜的是，这个式子又会带来一个四阶应力。
+
+聪明的你应该发现了问题所在：没引入式子解决多出来的未知量，就会带来一个新的未知量。也就是说，我们的未知量不但没成功减少，反而式子数量还变多了！
+
+![来源 搞笑漫画日和](https://5b0988e595225.cdn.sohucs.com/images/20200512/72bd7cd0061043ee9bb8fd8ae97470c0.jpeg)
+
+没有办法，我们只能采用第二种方法。
 
 ### 湍流的产生机制
 雷诺（Reynold）在1883年做了一个[实验](https://www.youtube.com/watch?v=y0WRJtXvpSo)（不能播放的话可以看看这个[比较长的版本](https://www.bilibili.com/video/BV14U4y1f7K7)）验证管道中湍流的产生机制。
